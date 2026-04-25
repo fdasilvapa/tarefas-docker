@@ -20,7 +20,7 @@ docker network create app-network
 A partir da raiz do projeto (`tarefas-docker`), execute o build das duas imagens:
 ```bash
 docker build -t backend-image ./backend
-docker build -t frontend-image ./frontend
+docker build --build-arg VITE_API_URL=http://localhost:3001 -t frontend-image ./frontend
 ```
 
 ### 3. Rodar o container do Banco de Dados
@@ -59,8 +59,7 @@ docker run -d \
 docker run -d \
   --name frontend \
   --network app-network \
-  -e VITE_API_URL=http://localhost:3001 \
-  -p 5173:5173 \
+  -p 5173:80 \
   frontend-image
 ```
 
